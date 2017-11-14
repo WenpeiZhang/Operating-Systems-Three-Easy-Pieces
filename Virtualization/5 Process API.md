@@ -147,4 +147,6 @@ while at the end of the program it's assigned exactly "5".*/
 From the above, we now know that both the child and parent can access the file descriptor returned by **open()**.
 According to this example, what happens when they are writing to the file concurrently is that parent will write first then the child write. (Is this concurrent though??)
 
-*Extended Reading: "The Linux Programming Interface" Chapter 5.5*
+**Extended Reading: "The Linux Programming Interface" Chapter 5.5*
+
+3. Write another program using **fork()**. The child process should print *“hello”*; the parent process should print *“goodbye”*. You should try to ensure that the child process always prints first; can you do this without calling **wait()** in the parent?
