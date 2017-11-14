@@ -35,7 +35,7 @@ hello world(pid:11694)
 hello, I am parent of 11695 (pid:11694), now x = 2017
 hello, I am child(pid:11695),now x = 2017
 ```
-Thus, the value of **x** in the child process is still 2017, the same as what is in the main process*(parent)*.
+Thus, the value of **x** in the child process is still 2017, the same as what is in the main process *(parent)*.
 
 Code2:
 ```c
@@ -76,4 +76,4 @@ Actually, the value of x =2017
 hello, I am child(pid:11713),now x = 2018
 Actually, the value of x =2017
 ```
-We can see that even though both the child and the parent have changed the value of **x**, while child changed it to 2018 and parent changed it to 2019,(inside the respective braces), the actual value of **x** still remains 2017. Thus, I assume that any changes made to the variable by the child and the parent are only effective within the respective braces as written above.
+We can see that even though both the child and the parent have changed the value of **x**, while child changed it to 2018 and parent changed it to 2019 (inside the respective braces), the actual value of **x** still remains 2017. Thus, I assume that any changes made to the variable by the child and the parent are only effective within the respective braces as written above.
