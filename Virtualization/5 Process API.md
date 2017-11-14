@@ -144,7 +144,7 @@ PPPPP...(95 "\u0")12345CCCCC...(95 "\u0")12345  
 /*Because the number of bytes to be written into the file was assigned "100", 
 while at the end of the program it's assigned exactly "5".*/
 ```
-From the above, we now know that both the child and parent can access the file descriptor returned by open().
+From the above, we now know that both the child and parent can access the file descriptor returned by **open()**.
 According to this example, what happens when they are writing to the file concurrently is that parent will write first then the child write. (Is this concurrent though??)
 
 *Extended Reading: "The Linux Programming Interface" Chapter 5.5*
