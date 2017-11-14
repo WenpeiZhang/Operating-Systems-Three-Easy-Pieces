@@ -37,7 +37,7 @@ hello world(pid:11694)
 hello, I am parent of 11695 (pid:11694), now x = 2017
 hello, I am child(pid:11695),now x = 2017
 ```
-Thus, the value of **x** in the child process is still 2017, the same as what is in the main process *(parent)*.
+Thus, the value of **x** in the child process is still 2017, the same as that in the main process *(parent)*.
 
 Code2:
 ```c
