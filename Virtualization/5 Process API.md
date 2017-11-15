@@ -150,3 +150,43 @@ According to this example, what happens when they are writing to the file concur
 **Extended Reading: "The Linux Programming Interface" Chapter 5.5*
 
 >3. Write another program using **fork()**. The child process should print *“hello”*; the parent process should print *“goodbye”*. You should try to ensure that the child process always prints first; can you do this without calling **wait()** in the parent?
+
+For starters, let's recall how it can be done using **wait()** ！
+Code1:
+```c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+int main(int argc, char *argv[])
+{
+    int rc = fork();
+    if(rc < 0)
+    {
+        fprintf(stderr,"fork failed\n");
+        exit(1);
+    }
+    else if(rc == 0)//child
+    {
+        printf("hello\n");
+    }
+    else//parent
+    {
+        wait(NULL);//if parent happen to run first then wait for the child
+        printf("goodbye\n");
+    }
+    return 0;
+}
+
+```
+Result1:
+```
+Peggys-MacBook-Air:~ Peggy$ vim s3.c
+Peggys-MacBook-Air:~ Peggy$ gcc -o s3 s3.c
+Peggys-MacBook-Air:~ Peggy$ ./s3
+hello
+goodbye
+```
+In this way, we can ensure the child process always prints first!
+Now let's make it more interesting! How can we achieve it w/o calling **wait()** in parent?
+
