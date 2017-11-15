@@ -152,6 +152,7 @@ According to this example, what happens when they are writing to the file concur
 >3. Write another program using **fork()**. The child process should print *“hello”*; the parent process should print *“goodbye”*. You should try to ensure that the child process always prints first; can you do this without calling **wait()** in the parent?
 
 For starters, let's recall how it can be done using **wait()** ！
+
 Code1:
 ```c
 #include<stdio.h>
@@ -188,5 +189,6 @@ hello
 goodbye
 ```
 In this way, we can ensure the child process always prints first!
+
 Now let's make it more interesting! How can we achieve it w/o calling **wait()** in parent?
 
