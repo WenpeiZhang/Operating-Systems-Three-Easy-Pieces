@@ -228,5 +228,5 @@ goodbye
 ```
 Without using **wait()** , we can use **sleep()** or **usleep()** in the parent procss. In this case, in the parent process, **usleep()** was called. It stopped parent for a certain amount of time, during which the child process started running. As long as child can finish its process within the set length of time, we can ensure that child prints first because once time's up it will switch back to run parent process.(***Actually this depends on the scheduling mechanism of the system***) 
 
-**Extended Reading: "The Linux Programming Interface" Chapter 5.5**
-    else if(rc == 0)//child
+**Extended Reading: "The Linux Programming Interface" Chapter 24**
+   
