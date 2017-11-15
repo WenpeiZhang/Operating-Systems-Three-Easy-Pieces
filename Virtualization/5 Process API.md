@@ -173,7 +173,7 @@ int main(int argc, char *argv[])
     }
     else//parent
     {
-        wait(NULL);//if parent happen to run first then wait for the child
+        wait(NULL);//if parent happens to run first then wait for the child
         printf("goodbye\n");
     }
     return 0;
