@@ -338,7 +338,7 @@ drwxr-xr-x   23 Peggy  staff    782 Sep 26 14:36 anaconda
 sh-3.2# 
 
  ```
-At first, I encountered `-bash: ./s4.c: Permission denied`. This is because the current user does not have to the privilage, we need to switch to "root user" in order to execute the program */bin/ls*. To do this, we can simply call "su" and enter the password. If it says`su: sorry`(under Mac system)，we can change the password and try it again. To change the password, just type the following:
+At first, I encountered `-bash: ./s4.c: Permission denied`. This is because the current user does not have the privilage, we need to switch to "root user" in order to execute the program */bin/ls*. To do this, we can simply call "su" and enter the password. If it says`su: sorry`(under Mac system)，we can change the password and try it again. To change the password, just type the following:
 ```
 sudo su
 //enter password
