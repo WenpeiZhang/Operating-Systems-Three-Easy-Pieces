@@ -240,6 +240,7 @@ Code:
  #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include<fcntl.h>
 #include<string.h>
 #include<sys/wait.h>
 
@@ -347,3 +348,8 @@ passwd root
 //Retype new password
 //Done! Password has been changed!
 ```
+
+   To use the rest of the varients, simply replace the argument：`execvp(myargs[0],myargs);` with the following arguments. See the code block below:
+   ```c
+   execv("/bin/ls",myargs);
+   ```
