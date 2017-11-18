@@ -234,7 +234,8 @@ Without using **wait()** , we can use **sleep()** or **usleep()** in the parent 
  >4. Write a program that calls **fork()** and then calls some form of **exec()** to run the program */bin/ls*. See if you can try all of the variants of **exec()**,including **execl()**, **execle()**, **execlp()**, **execv()**, **execvp()**, and **execvP()**. Why do you think there are so many variants of the same basic call?  
  
  Let's try **excvp()** first!
- Code:
+
+Code:
  ```c
  #include<stdio.h>
 #include<stdlib.h>
