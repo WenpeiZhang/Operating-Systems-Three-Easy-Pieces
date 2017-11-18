@@ -229,4 +229,120 @@ goodbye
 Without using **wait()** , we can use **sleep()** or **usleep()** in the parent procss. In this case, in the parent process, **usleep()** was called. It stopped parent for a certain amount of time, during which the child process started running. As long as child can finish its process within the set length of time, we can ensure that child prints first because once time's up it will switch back to run parent process.(***Actually this depends on the scheduling mechanism of the system***) 
 
 **Extended Reading: "The Linux Programming Interface" Chapter 24*
-   
+
+
+ >4. Write a program that calls **fork()** and then calls some form of **exec()** to run the program */bin/ls*. See if you can try all of the variants of **exec()**,including **execl()**, **execle()**, **execlp()**, **execv()**, **execvp()**, and **execvP()**. Why do you think there are so many variants of the same basic call?  
+ 
+ Let's try **excvp()** first!
+ Code:
+ ```c
+ #include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/wait.h>
+
+int main(int argc, char *argv[])
+{
+    int rc = fork();
+    if(rc < 0)
+    {
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    }
+    else if(rc == 0)//child (new process)
+    {
+        printf("hello, I am child(pid:%d)\n", (int) getpid());
+        char *myargs[3];
+        myargs[0] = strdup("ls");//program: "ls"
+        myargs[1] = strdup("-l");//argument: executable file
+        myargs[2] = NULL;//marks end of array
+        execvp(myargs[0],myargs);
+        printf("This shouldn't print out");
+    }
+    else//parent goes down this path (main)
+    {
+        int ls = wait(NULL);
+    }
+    return 0;
+}
+
+ ```
+ 
+ Results:
+ ```
+ Peggys-MacBook-Air:~ Peggy$ su
+Password:
+sh-3.2# gcc -o s4 s4.c
+sh-3.2# ./s4
+hello, I am child(pid:36317)
+total 464
+-r--------    1 Peggy  staff      9 Aug  2 08:34 .CFUserTextEncoding
+-rw-r--r--@   1 Peggy  staff  32772 Nov 18 16:33 .DS_Store
+drwxr-xr-x    3 Peggy  staff    102 Aug  3 07:06 .IdentityService
+drwx------    3 Peggy  staff    102 Aug  3 22:56 .ServiceHub
+drwx------    6 Peggy  staff    204 Nov 18 15:53 .Trash
+drwxr-xr-x    4 Peggy  staff    136 Nov  1  2015 .adobe
+drwxr-xr-x    3 Peggy  staff    102 Sep 26 13:59 .anaconda
+drwxr-xr-x    3 Peggy  staff    102 Aug  3 07:06 .android
+-rw-------    1 Peggy  staff   6656 Nov 18 16:52 .bash_history
+-rw-r--r--    1 Peggy  staff     84 Sep 26 13:57 .bash_profile
+drwx------  133 Peggy  staff   4522 Nov 18 16:52 .bash_sessions
+drwxr-xr-x    3 Peggy  staff    102 Oct 15 20:53 .conda
+-rw-r--r--    1 Peggy  staff     40 Oct 15 20:52 .condarc
+drwxr-xr-x    6 Peggy  staff    204 Aug  3 07:06 .config
+drwxr-xr-x    3 Peggy  staff    102 Sep 26 14:04 .continuum
+-rw-r--r--    1 Peggy  staff   1518 Oct 31 20:01 .drjava
+drwxr-xr-x    6 Peggy  staff    204 Jan 26  2017 .eclipse
+-rw-r--r--    1 Peggy  staff    188 Oct 31 11:14 .gitconfig
+drwxr-xr-x    5 Peggy  staff    170 Sep 26 14:00 .ipython
+drwxr-xr-x    3 Peggy  staff    102 Sep 26 14:16 .jupyter
+drwxr-xr-x    3 Peggy  staff    102 Aug  3 02:10 .mono
+drwxr-xr-x    9 Peggy  staff    306 Nov  8 20:31 .oracle_jre_usage
+-rw-r--r--    1 Peggy  staff  12288 Nov 18 16:07 .p1.c.swo
+-rw-r--r--    1 Peggy  staff  12288 Nov 14 19:37 .p1.c.swp
+drwxr-xr-x    5 Peggy  staff    170 Jul 29 03:56 .p2
+-rw-------    1 root   staff   1024 Oct 24 18:40 .rnd
+-rw-r--r--    1 Peggy  staff  12288 Nov 15 11:14 .s3.c.swp
+drwxr-xr-x   40 Peggy  staff   1360 Nov 18 16:29 .sogouinput
+drwxr-xr-x    6 Peggy  staff    204 Sep 11  2015 .subversion
+-rw-------    1 Peggy  staff  12288 Nov 14 13:52 .swn
+-rw-------    1 Peggy  staff  12288 Nov 14 10:33 .swo
+-rw-------    1 Peggy  staff  12288 Nov  6 21:02 .swp
+drwxr-xr-x    3 Peggy  staff    102 Aug  3 07:06 .templateengine
+drwxr-xr-x    3 Peggy  staff    102 Jan 26  2017 .tooling
+-rw-------    1 Peggy  staff   8237 Nov 18 16:28 .viminfo
+drwxr-xr-x    3 Peggy  staff    102 Nov  8 20:25 Applications
+drwx------@  26 Peggy  staff    884 Nov 18 11:09 Desktop
+drwx------@  44 Peggy  staff   1496 Nov 13 11:41 Documents
+drwx------+  24 Peggy  staff    816 Nov 18 15:53 Downloads
+drwx------@  86 Peggy  staff   2924 Nov 18 11:09 Library
+drwxr-xr-x    2 Peggy  staff     68 May  8  2017 MacKeeper Backups
+drwx------+   7 Peggy  staff    238 Aug  3 02:01 Movies
+drwx------+   7 Peggy  staff    238 Aug  4 01:40 Music
+drwx------+   4 Peggy  staff    136 Aug  3 02:07 Pictures
+drwxr-xr-x+   6 Peggy  staff    204 Aug  4 01:39 Public
+drwxr-xr-x    4 Peggy  staff    136 Nov  4 21:07 VirtualBox VMs
+drwxr-xr-x   23 Peggy  staff    782 Sep 26 14:36 anaconda
+-rwxr-xr-x    1 Peggy  staff   8660 Nov 14 17:04 p1
+-rw-r--r--    1 Peggy  staff    399 Nov 15 10:34 p1.c
+-rwxr-xr-x    1 Peggy  staff   8660 Nov 14 17:12 s1
+-rw-r--r--    1 Peggy  staff    593 Nov 14 17:12 s1.c
+-rwxr-xr-x    1 Peggy  staff   8920 Nov 14 20:37 s2
+-rw-r--r--    1 Peggy  staff   1083 Nov 14 20:37 s2.c
+-rwxr-xr-x    1 Peggy  staff   8660 Nov 15 11:12 s3
+-rw-r--r--    1 Peggy  staff    436 Nov 15 11:12 s3.c
+-rwxr-xr-x    1 root   staff   8920 Nov 18 16:53 s4
+-rw-r--r--    1 Peggy  staff    743 Nov 18 16:28 s4.c
+sh-3.2# 
+
+ ```
+At first, I encountered `-bash: ./s4.c: Permission denied`. This is because the current user does not have to the privilage, we need to switch to "root user" in order to execute the program */bin/ls*. To do this, we can simply call "su" and enter the password. If it says`su: sorry`(under Mac system)，we can change the password and try it again. To change the password, just type the following:
+```
+sudo su
+//enter password
+passwd root
+//Set new password
+//Retype new password
+//Done! Password has been changed!
+```
