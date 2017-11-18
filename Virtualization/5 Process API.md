@@ -350,7 +350,8 @@ passwd root
 ```
 
    To use the rest of the varients, simply replace the argument：`execvp(myargs[0],myargs);` with the following arguments. See the code block below:
-   ```c
+   
+```c
    char *envp[]={"PATH=/bin:/usr/bin", "TERM=console", NULL};// This array is a must for some of the funtions listed below
    
    execv("/bin/ls",myargs);
@@ -359,4 +360,5 @@ passwd root
    execve("/bin/ls", myargs, envp);
    execlp("ls", "ls", "-l", NULL);
    execvp("ls", myargs);
-   ```
+   
+```
