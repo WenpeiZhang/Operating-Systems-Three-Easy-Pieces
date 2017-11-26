@@ -1,4 +1,4 @@
-6.1 The first known correct software solution to the critical-section problem for two processes was developed by **Dekker**. The two processes, P0 and P1, share the following variables:
+>6.1 The first known correct software solution to the critical-section problem for two processes was developed by **Dekker**. The two processes, P0 and P1, share the following variables:
 ```c
 boolean flag[2]; /* initially false */
 int turn;
@@ -15,7 +15,7 @@ Answer:
 
 *(3) Bounded waiting is preserved through the use of the turn variable. Assume two processes wish to enter their respec- tive critical sections. They both set their value of flag to true, however only the thread whose turn it is can proceed, the other thread waits. If bounded waiting were not preserved, it would therefore be possible that the waiting process would have to wait indefinitely while the first process repeatedly entered - and exited - its critical section. However, Dekker’s algorithm has a process set the value of turn to the other pro- cess, thereby ensuring that the other process will enter its critical section next.*
 
-6.7 Describe how the **Swap()** instruction can be used to provide **mutual exclusion** that satisfies the **bounded-waiting requirement**.
+>6.7 Describe how the **Swap()** instruction can be used to provide **mutual exclusion** that satisfies the **bounded-waiting requirement**.
 ```c
  do {
         waiting[i] = TRUE;
@@ -35,15 +35,15 @@ Answer:
           } while (TRUE);
 
 ```
-6.8 Servers can be designed to limit the number of open connections. For example, a server may wish to have only N socket connections at any point in time. As soon as N connections are made, the server will not accept another incoming connection until an existing connection is re- leased. Explain how semaphores can be used by a server to limit the number of concurrent connections.
+>6.8 Servers can be designed to limit the number of open connections. For example, a server may wish to have only N socket connections at any point in time. As soon as N connections are made, the server will not accept another incoming connection until an existing connection is re- leased. Explain how semaphores can be used by a server to limit the number of concurrent connections.
 
 *Answer: **A semaphore is initialized to the number of allowable open socket connections.** When a connection is accepted, the *acquire()* method is called, when a connection is released, the *release()* method is called. If the system reaches the number of allowable socket connections, subsequent calls to *acquire()* will block until an existing connection is terminated and the release method is invoked.*
 
-6.9 Show that, if the *wait()* and *signal()* semaphore operations are not executed atomically, then mutual exclusion may be violated.
+>6.9 Show that, if the *wait()* and *signal()* semaphore operations are not executed atomically, then mutual exclusion may be violated.
 
 *Answer: A wait operation atomically decrements the value associated with a semaphore. If two wait operations are executed on a semaphore when its value is 1, if the two operations are not performed atomically, then it is possible that both operations might proceed to decrement the semaphore value thereby violating mutual exclusion.*
 
-6.10 Show how to implement the *wait()* and *signal()* semaphore operations in multiprocessor environments using the *TestAndSet()* instruction. The solution should exhibit minimal busy waiting.
+>6.10 Show how to implement the *wait()* and *signal()* semaphore operations in multiprocessor environments using the *TestAndSet()* instruction. The solution should exhibit minimal busy waiting.
 
 *Answer: Here is the pseudocode for implementing the operations:*
 ```c
