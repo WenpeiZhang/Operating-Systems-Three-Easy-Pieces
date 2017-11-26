@@ -26,8 +26,9 @@ b. *Burst time*: the amount of time it takes to finish a certain process
 
 c. *Waiting time* simply equals: 
 
-```Waiting time = The time a process finished - the time it came - its burst time 
-                = the process's turnaround time - its burst time
+```
+Waiting time = The time a process finished - the time it came - its burst time  
+             = the process's turnaround time - its burst time
 ```
 
 * **First- Come, First-Served (FCFS) Scheduling**
