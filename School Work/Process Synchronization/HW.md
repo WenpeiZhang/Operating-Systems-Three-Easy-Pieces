@@ -3,7 +3,7 @@
 boolean flag[2]; /* initially false */
 int turn;
 ```
-The structure of process Pi (i == 0 or 1) is shown in Figure 6.25; the other process is Pj (j == 1 or 0). Prove that the algorithm satisfies all three requirements for the critical-section problem.
+>The structure of process Pi (i == 0 or 1) is shown in Figure 6.25; the other process is Pj (j == 1 or 0). Prove that the algorithm satisfies all three requirements for the critical-section problem.
 
 Answer: 
 
@@ -73,7 +73,7 @@ signal()
     guard = 0;
 }
 ```
-6.11 ***The Sleeping-Barber Problem***. A barbershop consists of a waiting room with *n* chairs and a barber room with one barber chair. If there are no customers to be served, the barber goes to sleep. If a customer enters the barbershop and all chairs are occupied, then the customer leaves the shop. If the barber is busy but chairs are available, then the customer sits in one of the free chairs. If the barber is asleep, the customer wakes up the barber. Write a program to coordinate the barber and the customers.
+>6.11 ***The Sleeping-Barber Problem***. A barbershop consists of a waiting room with *n* chairs and a barber room with one barber chair. If there are no customers to be served, the barber goes to sleep. If a customer enters the barbershop and all chairs are occupied, then the customer leaves the shop. If the barber is busy but chairs are available, then the customer sits in one of the free chairs. If the barber is asleep, the customer wakes up the barber. Write a program to coordinate the barber and the customers.
 
 Answer:
 (1) BarberShop.java
