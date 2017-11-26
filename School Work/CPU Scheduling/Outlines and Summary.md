@@ -13,12 +13,17 @@ CPU scheduling decisions may take place when a process:
 * **Turnaround time** – amount of time to execute a particular process (from the time they come to the time they finish)
 * **Waiting time** – amount of time a process has been waiting in the ready queue 
 * **Response time** – amount of time it takes from when a request was submitted until the first response is produced, not output (for time-sharing environment)(from the time they come to the first time they start)
+
 *Cautious! Be careful not to mistaken waiting time for response time!!!*
+
 5. Various CPU-scheduling algorithms (IMPORTANT!!!)(with Ganntt Chart)
 
 Several concept first:
+
 a. *Ganntt Chart*
+
 b. *Burst time*: the amount of time it takes to finish a certain process
+
 c. *Waiting time* simply equals: 
 ```Waiting time = The time a process finished - the time it came - its burst time = the process's turnaround time - its burst time```
 
