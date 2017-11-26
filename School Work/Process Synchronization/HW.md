@@ -350,3 +350,51 @@ public class CreateBarberShopTest implements Runnable
     }
 }
 ```
+>6.13 Write a bounded-buffer monitor in which the buffers (portions) are embedded within the monitor itself.
+
+Answer:
+```c
+monitor bounded_buffer { int items[MAX_ITEMS]; int numItems = 0; condition full, empty;
+              void produce(int v) {
+                  while (numItems == MAX_ITEMS)
+                      full.wait();
+                  items[numItems++] = v;
+                  empty.signal();
+}
+              int consume() {
+                  int retVal;
+                  while (numItems == 0)
+  
+empty.wait();
+retVal = items[--numItems];
+        full.signal();
+        return retVal;
+    }
+}
+```
+>6.15 Discuss the tradeoff between fairness and throughput of operations in the readers-writers problem. Propose a method for solving the readers-writers problem without causing starvation.
+
+*Answer: Throughput in the readers-writers problem is increased by favoring multiple readers as opposed to allowing a single writer to exclusively access the shared values. On the other hand, favoring readers could result in starvation for writers. The starvation in the readers- writers problem could be avoided by keeping timestamps associated with waiting processes. When a writer is finished with its task, it would wake up the process that has been waiting for the longest duration. When a reader arrives and notices that another reader is accessing the database, then it would enter the critical section only if there are no waiting writers. These restrictions would guarantee fairness.*
+
+>6.18 Consider a system consisting of processes P1 , P2 , ..., Pn , each of which has a unique priority number. Write a monitor that allocates three identical line printers to these processes, using the priority numbers for deciding the order of allocation.
+
+Answer:
+```c
+monitor printers {
+int num avail = 3;
+int waiting processes[MAX PROCS]; int num waiting;
+condition c;
+void request printer(int proc number) { if (num avail > 0) {
+num avail--;
+return;
+}waiting processes[num waiting] = proc number; num waiting++;
+sort(waiting processes);
+while (num avail == 0 &&
+waiting processes[0] != proc number) c.wait();
+waiting processes[0] =
+waiting processes[num waiting-1];
+num waiting--; sort(waiting processes); num avail--;
+}
+void release printer() { num avail++; c.broadcast();
+} }
+```
