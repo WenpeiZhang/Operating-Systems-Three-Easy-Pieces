@@ -15,11 +15,12 @@ CPU scheduling decisions may take place when a process:
 * **Response time** – amount of time it takes from when a request was submitted until the first response is produced, not output (for time-sharing environment)(from the time they come to the first time they start)
 *Cautious! Be careful not to mistaken waiting time for response time!!!*
 5. Various CPU-scheduling algorithms (IMPORTANT!!!)(with Ganntt Chart)
+
 Several concept first:
-a. Ganntt Chart
-b. Burst time: the amount of time it takes to finish a certain process
+a. *Ganntt Chart*
+b. *Burst time*: the amount of time it takes to finish a certain process
 c. *Waiting time* simply equals: 
-`Waiting time = The time a process finished - the time it came - its burst time = the process's turnaround time - its burst time`
+```Waiting time = The time a process finished - the time it came - its burst time = the process's turnaround time - its burst time```
 
 * **First- Come, First-Served (FCFS) Scheduling**
 *
