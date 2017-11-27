@@ -93,5 +93,28 @@ Waiting time = The time a process finished - the time it came - its burst time �
 * **Soft real-time systems** – no guarantee as to when critical real-time process will be scheduled
 * **Hard real-time systems** – task must be serviced by its **deadline**
 * Two types of **latencies** affect performance
-  * **Interrupt latency** - time from *arrival of interrupt* to *start of routine that services interrupt*
-  * **Dispatch latency** - time for schedule to take current process off CPU and switch to another
+  - **Interrupt latency** - time from *arrival of interrupt* to *start of routine that services interrupt*
+  - **Dispatch latency** - time for schedule to take current process off CPU and switch to another
+* Conflict phase of dispatch latency:
+  - Preemption of any process running in kernel mode
+  - Release by low- priority process of resources needed by high-priority processes（#insert pic ppt 38）
+  
+11.**Priority-based Scheduling** (Point 10 Cont.)
+* For real-time scheduling, scheduler must support preemptive, priority-based scheduling (But only guarantee soft real-time, which means it cannot guarantee all tasks to be finished by their deadlines)
+* For hard real-time must also provide ability to meet **deadlines**
+* Processes have new characteristics: periodic ones require CPU at constant intervals *(They require CPU once in a while, and the periodity is fixed, thus implying the deadline of the first cycle of process A is also the starting point of process A's second cycle )*
+  - Has **processing time t (Also said to be the "Worst-case Execute Time", known as "WCET"), deadline d, period p**
+  - *0 ≤ t ≤ d ≤ p* (deadline is more like a time point while WCET/processing time is like a time slot)
+  - **Rate** of periodic task is *1/p*
+  
+12. **Rate Montonic Scheduling (IMPORTANT!!!)**
+* A priority is assigned based on the inverse of its period (Shorter periods = Higher Priority, Longer periods = Lower Priority)
+* It is a static priority algorithm **(Priority is fixed!)**
+* **Preemptive**
+* Can cause missed deadline, since it cannot guarantee hard real-time systems
+  
+13. **Earliest Deadline First Scheduling (EDF) (IMPORTANT!!!)**
+* Priorities are assigned according to deadlines (the earlier the deadline, the higher the priority;the later the deadline, the lower the priority)
+* **Priority is not fixed!** It can change over time, base on different deadlines!
+* **Preemptive**
+
