@@ -35,28 +35,43 @@ Waiting time = The time a process finished - the time it came - its burst time �
   - *Convoy Effect - short process behind long process* (Consider one CPU-bound and many I/O-bound processes)
 * **Shortest-Job-First (SJF) Scheduling**(a special case of the general **priority scheduling algorithm**)
 - Associate with each process the length of its next CPU burst
-  - Use these lengths to schedule the process with the shortest time
-- SJF is optimal – gives minimum average waiting time for a given set of processes
-  - The difficulty is knowing the length of the next CPU request (Could ask the user)
+  - Use these lengths to schedule the process with the shortest time SJF is optimal
+  
+  - gives minimum average waiting time for a given set of processes
+  
+  - The difficulty is knowing the length of the next CPU request (Could ask the user)
+
 - *Preemptive version called shortest-remaining-time-first*
 * **Shortest-remaining-time-first** (Preemptive version of SJF)
 * **Priority Scheduling**
-- *Note that SJF is a special case of the general priority scheduling. It prioritize processes based on their burst time (and SRTF based on their remaining time). No need to worry about remaining time or burst time when you are simply refering to priority scheduling in general. Just look at its priority and decide whether you want it preemptive or not.*
-- Problems may occure. A major problem with priority scheduling algorithms is indefinite blocking, or starvation.(processes with low prority can be starved for a long time, think of the rumor of IBM & MIT lab :))
+
+ *Note that SJF is a special case of the general priority scheduling. It prioritize processes based on their burst time (and SRTF based on their remaining time). No need to worry about remaining time or burst time when you are simply refering to priority scheduling in general. Just look at its priority and decide whether you want it preemptive or not.*
+
+  - Problems may occure. A major problem with priority scheduling algorithms is indefinite blocking, or starvation.(processes with low prority can be starved for a long time, think of the rumor of IBM & MIT lab :))
+  
 * **Round Robin (RR)** *(Similar to FCFS. Solving the starvation problem)*
-- Each process gets a small unit of CPU time (time quantum q), usually 10-100 milliseconds. After this time has elapsed, the process is preempted and added to the end of the ready queue.
-- If there are n processes in the ready queue and the time quantum is q, then each process gets 1/n of the CPU time in chunks of at most q time units at once. No process waits more than (n-1)q time units.
-- Timer interrupts every quantum to schedule next process
-- Performance: q large ⇒ FIFO; q small ⇒ q must be large with respect to context switch, otherwise overhead is too high
-- Typically, higher average turnaround than SJF, but better response
+  - Each process gets a small unit of CPU time (time quantum q), usually 10-100 milliseconds. After this time has elapsed, the process is preempted and added to the end of the ready queue.
+  
+  - If there are n processes in the ready queue and the time quantum is q, then each process gets 1/n of the CPU time in chunks of at most q time units at once. No process waits more than (n-1)q time units.
+  
+  - Timer interrupts every quantum to schedule next process
+  
+  - Performance: q large ⇒ FIFO; q small ⇒ q must be large with respect to context switch, otherwise overhead is too high
+  
+  - Typically, higher average turnaround than SJF, but better response
+  
 * **Multilevel Queue**
-- foreground (interactive), background (batch);foreground – RR, background – FCFS
+  - foreground (interactive), background (batch);foreground – RR, background – FCFS
 * **Multilevel Feedback Queue**
 - Multilevel-feedback-queue scheduler defined by the following parameters:
-  -number of queues
+  -number of queues
+  
   -scheduling algorithms for each queue
+  
   -method used to determine when to upgrade a process
+  
   -method used to determine when to demote a process
+  
   -method used to determine which queue a process will enter when that process needs service
   
 6.**Thread Scheduling**
@@ -74,13 +89,16 @@ Waiting time = The time a process finished - the time it came - its burst time �
 * Can be limited by OS – Linux and Mac OS X only allow PTHREAD_SCOPE_SYSTEM
 
 8. **Multiple-Processor Scheduling**
+
 * Homogeneous processors within a multiprocessor
 * **Asymmetric multiprocessing** – only one processor accesses the system data structures, alleviating the need for data sharing
 * **Symmetric multiprocessing (SMP)** – each processor is self- scheduling, all processes in common ready queue, or each has its own private queue of ready processes (Currently, most common)
 * **Processor affinity** – process has affinity for processor on which it is currently running
   * Soft affinity
+  
   * Hard affinity
-  * Variations including processor sets
+  
+  * Variations including processor sets
 *(Note that memory-placement algorithms can also consider affinity)*
 
 9. **Multiple-Processor Scheduling – Load Balancing**
