@@ -7,7 +7,7 @@ CPU scheduling decisions may take place when a process:
 * Switches from waiting to ready (preemptive)
 * Terminates (none preemptive)
 3. **Dispatch latency** – time it takes for the dispatcher to stop one process and start another running
-4. Scheduling Criteria:(Optimization: Max, Max, Min, Min, Min respectively)
+4. **Scheduling Criteria:(Optimization: Max, Max, Min, Min, Min respectively)**
 * **CPU utilization** – keep the CPU as busy as possible
 * **Throughput** – # of processes that complete their execution per time unit
 * **Turnaround time** – amount of time to execute a particular process (from the time they come to the time they finish)
@@ -16,7 +16,7 @@ CPU scheduling decisions may take place when a process:
 
 *Cautious! Be careful not to mistaken waiting time for response time!!!*
 
-5. Various CPU-scheduling algorithms (IMPORTANT!!!)(with Ganntt Chart)
+5. **Various CPU-scheduling algorithms (IMPORTANT!!!)(with Ganntt Chart)**
 
 Several concept first:
 
@@ -31,8 +31,8 @@ Waiting time = The time a process finished - the time it came - its burst time �
              = the process's turnaround time - its burst time
 ```
 
-* **First- Come, First-Served (FCFS) Scheduling**
-- *Convoy Effect - short process behind long process* (Consider one CPU-bound and many I/O-bound processes)
+* **First- Come, First-Served (FCFS) Scheduling***
+  - *Convoy Effect - short process behind long process* (Consider one CPU-bound and many I/O-bound processes)
 * **Shortest-Job-First (SJF) Scheduling**(a special case of the general **priority scheduling algorithm**)
 - Associate with each process the length of its next CPU burst
   - Use these lengths to schedule the process with the shortest time
@@ -57,5 +57,41 @@ Waiting time = The time a process finished - the time it came - its burst time �
   -scheduling algorithms for each queue
   -method used to determine when to upgrade a process
   -method used to determine when to demote a process
-  -method used to determine which queue a process will enter when that process needs service
+  -method used to determine which queue a process will enter when that process needs service
+  
+6.**Thread Scheduling**
+* There are two kinds of threads: *user-level* and *kernel-level threads*
+* When threads supported, threads scheduled, not processes
+* Many-to-one and many-to-many models, thread library schedules user-level threads to run on LWP
+  * Known as *process-contention scope (PCS)* since scheduling competition is within the process
+  * Typically don via priority set by programmer
+* Kernel thread scheduled onto available CPU is *system-contention scope (SCS)* – competition among all threads in system
 
+7. **Pthread Scheduling**
+* API allows specifying either PCS or SCS during thread creation
+  * PTHREAD_SCOPE_PROCESS schedules threads using PCS scheduling
+  * PTHREAD_SCOPE_SYSTEM schedules threads using SCS scheduling
+* Can be limited by OS – Linux and Mac OS X only allow PTHREAD_SCOPE_SYSTEM
+
+8. **Multiple-Processor Scheduling**
+* Homogeneous processors within a multiprocessor
+* **Asymmetric multiprocessing** – only one processor accesses the system data structures, alleviating the need for data sharing
+* **Symmetric multiprocessing (SMP)** – each processor is self- scheduling, all processes in common ready queue, or each has its own private queue of ready processes (Currently, most common)
+* **Processor affinity** – process has affinity for processor on which it is currently running
+  * Soft affinity
+  * Hard affinity
+  * Variations including processor sets
+*(Note that memory-placement algorithms can also consider affinity)*
+
+9. **Multiple-Processor Scheduling – Load Balancing**
+**If SMP**, need to keep all CPUs loaded for efficiency
+* **Load balancing** attempts to keep workload evenly distributed
+* **Push migration** – periodic task checks load on each processor, and if found pushes task from overloaded CPU to other CPUs
+* **Pull migration** – idle processors pulls waiting task from busy processor
+
+10.**Real-Time CPU Scheduling**
+* **Soft real-time systems** – no guarantee as to when critical real-time process will be scheduled
+* **Hard real-time systems** – task must be serviced by its **deadline**
+* Two types of **latencies** affect performance
+  * **Interrupt latency** - time from *arrival of interrupt* to *start of routine that services interrupt*
+  * **Dispatch latency** - time for schedule to take current process off CPU and switch to another
