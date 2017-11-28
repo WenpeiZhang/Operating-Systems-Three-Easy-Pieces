@@ -1,4 +1,4 @@
-### Concurrency: An Introduction
+## Concurrency: An Introduction
 1. Each threads has its own private set of registers it uses for computation; thus, if there are two threads that are running on a single processor, when switching from running one (T1) to running the other (T2), a **context switch** must take place.
 
 2. Difference between threads and processes:
@@ -35,13 +35,13 @@ d. What we really want for this code is what we call **mutual exclusion**. This 
 * **Atomically**, in this context, means “as a unit”, which sometimes we take as “all or none.” What we’d like is to execute the three instruction sequence atomically:there is no in-between state.
 * what we will instead do is ask the hardware for a few useful instructions upon which we can build a general set of what we call **syn- chronization primitives.**
 
-#### Learning to build multi-threaded code that accesses critical sections in a synchronized and controlled manner is the main theme of this chapter.
+### Learning to build multi-threaded code that accesses critical sections in a synchronized and controlled manner is the main theme of this chapter.
 
-##### Two main problems to solve:
+#### Two main problems to solve:
 a. Interactions of threads when accessing shared variables and the need to support atomicity for critical sections. (Mutex/Lock)
 b. Interactions of threads when one thread must wait for another to complete some action before it continues. (Condition variables)
 
-##### Key Concurrency Terms
+#### Key Concurrency Terms
 1. A **critical section** is a piece of code that accesses a shared resource, usually a variable or data structure.
 
 2. A **race condition** arises if multiple threads of execution enter the critical section at roughly the same time; both attempt to update the shared data structure, leading to a surprising (and perhaps un- desirable) outcome.
@@ -49,6 +49,36 @@ b. Interactions of threads when one thread must wait for another to complete som
 3. An **indeterminate** program consists of one or more race conditions; the output of the program varies from run to run, depending on which threads ran when. The outcome is thus not **deterministic**, something we usually expect from computer systems.
 
 4.To avoid these problems, threads should use some kind of **mutual exclusion** primitives; doing so guarantees that only a single thread ever enters a critical section, thus avoiding races, and resulting in deterministic program outputs.
+
+## Deadlock
+1. **Conditions for Deadlock**
+
+Four conditions need to hold for a deadlock to occur:
+* **Mutual exclusion**: Threads claim exclusive control of resources that they require (e.g., a thread grabs a lock).
+* **Hold-and-wait**:Threads hold resources allocated to them (e.g.,locks that they have already acquired) while waiting for additional resources (e.g., locks that they wish to acquire).
+* **No preemption**: Resources (e.g., locks) cannot be forcibly removed from threads that are holding them.
+* **Circular wait**: There exists a circular chain of threads such that each thread holds one or more resources (e.g., locks) that are being requested by the next thread in the chain.
+
+*If any of these four conditions are not met, deadlock cannot occur. Thus, we first explore techniques to prevent deadlock; each of these strate- gies seeks to prevent one of the above conditions from arising and thus is one approach to handling the deadlock problem.
+
+
+### Prevention
+ #### Circular Wait
+ Probably the most practical prevention technique (and certainly one that is frequently employed) is to write your locking code such that you never induce a circular wait. 
+ 
+ The most straightforward way to do that is to pro- vide a total ordering on lock acquisition. For example, if there are only two locks in the system (L1 and L2), you can prevent deadlock by always acquiring L1 before L2. Such strict ordering ensures that no cyclical wait arises; hence, no deadlock.
+
+Of course, in more complex systems, more than two locks will ex- ist, and thus total lock ordering may be difficult to achieve (and per- haps is unnecessary anyhow). Thus, a partial ordering can be a useful way to structure lock acquisition so as to avoid deadlock.
+
+*ENFORCE LOCK ORDERING BY LOCK ADDRESS
+
+#### Hold-and-wait
+
+The hold-and-wait requirement for deadlock can be avoided by acquiring all locks at once, atomically.
+
+It requires that any time any thread grabs a lock, it first acquires the **global** prevention lock. For example, if another thread was trying to grab locks L1 and L2 in a dif- ferent order, it would be OK, because it would be holding the prevention lock while doing so, thus guarantees that no untimely thread switch can occur in the midst of lock acquisition and thus deadlock can once again be avoided.
+
+Note that the solution is **problematic** for a number of reasons. As before, encapsulation works against us: when calling a routine, this ap- proach requires us to know exactly which locks must be held and to ac- quire them ahead of time. This technique also is likely to decrease con- currency as all locks must be acquired early on (at once) instead of when they are truly needed.
 
 1. Three requirements for the **critical-section** problem are: **Mutual exclusion, Progress, Bounded waiting.**(Exiercise 6.1，6.2)
 
