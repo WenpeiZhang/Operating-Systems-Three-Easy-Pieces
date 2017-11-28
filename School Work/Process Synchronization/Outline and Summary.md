@@ -21,7 +21,7 @@
 
 5. How threads interact when they access shared data
 
-a. example: 2million --> 1900000
+a. example: 2million --> 1900000 
 
 Thread 1 load the value of *counter* into its register *eax*.Thus, *eax=50* for Thread 1. Then it adds one to the register; thus *eax=51*. **Now, something unfortunate happens**: a timer interrupt goes off; thus, the OS saves the state of the currently running thread (its PC, its registers including eax, etc.) to the thread’s *TCB*.......
 
