@@ -74,11 +74,23 @@ Of course, in more complex systems, more than two locks will ex- ist, and thus t
 
 #### Hold-and-wait
 
-The hold-and-wait requirement for deadlock can be avoided by acquiring all locks at once, atomically.
+#### Mutex Exclusion
+In general, we know this is difficult, because the code we wish to run does indeed have critical sections. Herlihy had the idea that one could design various data structures without locks at all [H91, H93]. The idea behind these lock-free (and related wait-free) approaches here is simple: using powerful hardware instructions, you can build data structures in a manner that does not re- quire explicit locking.
+
+The hold-and-wait requirement for deadlock can be avoided by *acquiring all locks at once*, atomically.
 
 It requires that any time any thread grabs a lock, it first acquires the **global** prevention lock. For example, if another thread was trying to grab locks L1 and L2 in a dif- ferent order, it would be OK, because it would be holding the prevention lock while doing so, thus guarantees that no untimely thread switch can occur in the midst of lock acquisition and thus deadlock can once again be avoided.
 
 Note that the solution is **problematic** for a number of reasons. As before, encapsulation works against us: when calling a routine, this ap- proach requires us to know exactly which locks must be held and to ac- quire them ahead of time. This technique also is likely to decrease con- currency as all locks must be acquired early on (at once) instead of when they are truly needed.
+
+### Deadlock Avoidance via Scheduling
+#### Instead of deadlock prevention, in some scenarios *deadlock avoidance* is preferable.
+#### Dijkstra’s Banker’s Algorithm
+
+### Detect and Recover
+Many database systems employ deadlock detection and recovery tech- niques. A deadlock detector runs periodically, building a **resource graph** and checking it for cycles
+
+Avoidance requires some global knowledge of which locks various threads might grab during their execution, and subsequently sched- ules said threads in a way as to guarantee no deadlock can occur.
 
 1. Three requirements for the **critical-section** problem are: **Mutual exclusion, Progress, Bounded waiting.**(Exiercise 6.1，6.2)
 
