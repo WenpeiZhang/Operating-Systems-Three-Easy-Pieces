@@ -1,4 +1,4 @@
-###Concurrency: An Introduction
+### Concurrency: An Introduction
 1. Each threads has its own private set of registers it uses for computation; thus, if there are two threads that are running on a single processor, when switching from running one (T1) to running the other (T2), a **context switch** must take place.
 
 2. Difference between threads and processes:
@@ -32,11 +32,21 @@ d. What we really want for this code is what we call **mutual exclusion**. This 
 6. The wish for **atomocity**
 * **Atomically**, in this context, means “as a unit”, which sometimes we take as “all or none.” What we’d like is to execute the three instruction sequence atomically:there is no in-between state.
 * what we will instead do is ask the hardware for a few useful instructions upon which we can build a general set of what we call **syn- chronization primitives.**
-####Learning to build multi-threaded code that accesses critical sections in a synchronized and controlled manner is the main theme of this chapter.
-#####Two main problems to solve:
+
+#### Learning to build multi-threaded code that accesses critical sections in a synchronized and controlled manner is the main theme of this chapter.
+
+##### Two main problems to solve:
 a. Interactions of threads when accessing shared variables and the need to support atomicity for critical sections. (Mutex/Lock)
 b. Interactions of threads when one thread must wait for another to complete some action before it continues. (Condition variables)
 
+##### Key Concurrency Terms
+1. A **critical section** is a piece of code that accesses a shared resource, usually a variable or data structure.
+
+2. A **race condition** arises if multiple threads of execution enter the critical section at roughly the same time; both attempt to update the shared data structure, leading to a surprising (and perhaps un- desirable) outcome.
+
+3. An **indeterminate** program consists of one or more race conditions; the output of the program varies from run to run, depending on which threads ran when. The outcome is thus not **deterministic**, something we usually expect from computer systems.
+
+4.To avoid these problems, threads should use some kind of **mutual exclusion** primitives; doing so guarantees that only a single thread ever enters a critical section, thus avoiding races, and resulting in deterministic program outputs.
 
 1. Three requirements for the **critical-section** problem are: **Mutual exclusion, Progress, Bounded waiting.**(Exiercise 6.1，6.2)
 
