@@ -20,7 +20,9 @@
 * `pthread_create(...)`creates threads, After creating the two threads (let’s call them T1 and T2), the main thread calls `pthread join(...)`, which *waits for a particular thread to complete*. It does so twice, thus ensuring T1 and T2 will run and com- plete before finally allowing the main thread to run again
 
 5. How threads interact when they access shared data
+
 a. example: 2million --> 1900000
+
 Thread 1 load the value of *counter* into its register *eax*.Thus, *eax=50* for Thread 1. Then it adds one to the register; thus *eax=51*. **Now, something unfortunate happens**: a timer interrupt goes off; thus, the OS saves the state of the currently running thread (its PC, its registers including eax, etc.) to the thread’s *TCB*.......
 
 b. The example above demonstrate a **race condition: the results depend on the timing execution of the code.** With some bad luck (i.e., context switches that occur at untimely points in the execution), we get the wrong result. Instead of a nice deterministic computation, we call this result indeterminate, where it is not known what the output will be and it is indeed likely to be different across runs.
