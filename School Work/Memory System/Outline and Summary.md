@@ -6,7 +6,7 @@
 
    The program, while it is running, uses a *stack* to keep track of where it is in the function call chain as well as to allocate local variables and pass parameters and return values to and from routines. 
    
-   Finally, the *heap* is used for dynamically-allocated, user-managed memory, such as that you might receive from a call to malloc() in C    or new in an object-oriented language such as C++ or Java
+   Finally, the *heap* is used for dynamically-allocated, user-managed memory, such as that you might receive from a call to malloc() in C or new in an object-oriented language such as C++ or Java
    
 4. **Address translation**, is that the hardware takes a virtual address the process thinks it is referencing and transforms it into a physical address which is where the data actually resides.
 
@@ -61,3 +61,13 @@ In such a system, free memory is first conceptually thought of as one big space 
 When returning the 8KB block to the free list, the allocator checks whether the “buddy” 8KB is free; if so, it coalesces the two blocks into a 16KB block. The allocator then checks if the buddy of the 16KB block is still free; if so, it coalesces those two blocks. This recursive coa- lescing process continues up the tree, either restoring the entire free space or stopping when a buddy is found to be in use.
 
 note that this scheme can suffer from internal fragmentation, as you are only allowed to give out power-of-two-sized blocks.
+
+**Paging**: Instead of splitting up a process’s address space into some number of variable-sized logical segments (e.g., code, heap, stack), we divide it into fixed-sized units, each of which we call a page. Correspondingly, we view physical memory as an array of fixed-sized slots called page frames; **each of these frames can contain a single virtual-memory page.**
+
+To record where each virtual page of the address space is placed in physical memory, the operating system usually keeps a per-process data structure known as a **page table**.
+
+If *another process* were to run in our example above, the OS would have to manage a different page table for it, as its virtual pages obviously map to different physical pages.
+
+A **TLB (translation-lookaside Buffer)** is part of the chip’s memory-management unit (MMU), and is simply a hardware cache of popular virtual-to-physical address translations
+
+Upon each virtual memory reference, the hardware first checks the TLB to see if the desired translation is held therein; if so, the translation is performed (quickly) without having to consult the page table (which has all translations).
